@@ -1,28 +1,113 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>JavaScript - To Do List</title>-->
+<!--    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web">-->
+<!--	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">-->
+<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+<!--    <link rel="stylesheet" href="css/style.css">-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div class="container">-->
+<!--        <div class="header">-->
+<!--            <div id="date"></div>-->
+<!--        </div>-->
+<!--        <div class="content">-->
+<!--            <ul class="nav nav-tabs" id="filters"></ul>-->
+<!--            <ul id="list"></ul>-->
+<!--        </div>-->
+<!--        <div class="add-to-do">-->
+<!--            <i class="fa fa-plus-circle plus"></i>-->
+<!--            <input type="text" id="input" placeholder="Add a to-do" minlength="1">-->
+<!--        </div>-->
+<!--    </div>-->
+<!--	<script src="js/script.js"></script>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>JavaScript - To Do List</title>
+    <title>To Do List</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="js/script.js"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <div id="date"></div>
-        </div>
-        <div class="content">
-            <ul class="nav nav-tabs" id="filters">
-            </ul>
-            <ul id="list"></ul>
-            <div class="add-to-do">
-                <i class="fa fa-plus-circle plus"></i>
-                <input type="text" id="input" placeholder="Add a to-do" minlength="1">
-            </div>
-        </div>
+<div class="container" id="vue">
+    <div class="header">
+        <date-item id="date"></date-item>
     </div>
-	<script src="js/script.js"></script>
+    <div class="content">
+        <ul id="list">
+            <todo-item
+                    v-for="todo in list"
+                    :todo="todo"
+                    :key="todo.id"
+            ></todo-item>
+        </ul>
+    </div>
+    <div class="add-to-do">
+        <i class="fa fa-plus-circle plus"></i>
+        <input type="text" id="input" placeholder="Add a to-do" minlength="1">
+    </div>
+</div>
+<script>
+    Vue.component('date-item', {
+        data () {
+            return {
+                today: new Date().toLocaleString('en', {weekday: 'long', month: 'short', day: 'numeric'}),
+            }
+        },
+        template: '<div>{{ today }}</div>',
+    })
+
+    Vue.component('todo-item', {
+        props: ['todo'],
+        template: `<li class="item">
+                       <i :class="[icon]" @click="toggleDone"></i>
+                       <p :class="[{done: isDone, text}]"> {{ todo.text }} </p>
+                       <i :class="[trash]" @click="remove" ></i>
+                   </li>`,
+
+        data () {
+            return {
+                isDone: false,
+                text: true,
+                icon: 'fa fa-circle-thin co',
+                trash: 'fa fa-trash-o de',
+            }
+        },
+        methods: {
+            toggleDone() {
+                console.log(app.list);
+                this.isDone = !this.isDone;
+                this.icon = this.isDone ? 'fa fa-check-circle co' : 'fa fa-circle-thin co';
+            },
+            remove() {
+                app.list.splice(0, 1);
+            }
+        }
+    })
+
+    var app = new Vue({
+        el: "#vue",
+        data: {
+            list: [
+                { id: 0, text: 'Meat', },
+                { id: 1, text: 'Cheese' },
+                { id: 2, text: 'Apple' }
+            ],
+            methods: {
+
+            }
+        }
+    })
+</script>
 </body>
-</html>
+</html >
