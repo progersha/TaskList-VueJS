@@ -57,8 +57,8 @@ body{
     overflow: auto;
     position: relative;
 }
-.content::-webkit-scrollbar { 
-    display: none; 
+.content::-webkit-scrollbar {
+    display: none;
 }
 .content ul{
     padding:0;

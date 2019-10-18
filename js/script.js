@@ -1,64 +1,62 @@
-// const date = document.getElementById("date");
-// const list = document.getElementById("list");
-// const input = document.getElementById("input");
-// const plus = document.querySelector(".plus");
-//
-// date.textContent = new Date().toLocaleString('en', {weekday: 'long', month: 'short', day: 'numeric'});
-//
-// const key = 'ks_todo';
-// let tasks = JSON.parse(localStorage.getItem(key)) || [];
-// render();
-//
-// function updateStorage() {
-//     localStorage.setItem(key, JSON.stringify(tasks));
-// }
-//
-// function render() {
-//     list.innerHTML = tasks.map((task, i) => {
-//         const icon = task.closed
-//             ? 'fa-check-circle'
-//             : 'fa-circle-thin';
-//         const line = task.closed
-//             ? 'lineThrough'
-//             : '';
-//         return `<li class="item">
-//                 <i class="fa ${icon} co" onclick="onToggleStatus(${i})"></i>
-//                 <p class="text ${line} value = ${task.name} "> ${task.name} </p>
-//                 <i class="fa fa-trash-o de" job="delete" onclick="onDelete(${i})"></i>
-//                 </li>`;
-//     }).join('');
-// }
-//
-// function addToDo(taskName) {
-//     if (taskName == '')
-//         return;
-//     tasks.push({
-//         name: taskName,
-//         closed: false
-//     });
-//     updateStorage();
-//     render();
-// }
-//
-// function onToggleStatus(index) {
-//     tasks.map((task, i) => {
-//         if (i == index) {
-//             task.closed = !task.closed;
-//         }
-//         return task;
-//     });
-//     updateStorage();
-//     render();
-// }
-//
-// function onDelete(index) {
-//     tasks.splice(index, 1);
-//     localStorage.removeItem(index);
-//     updateStorage();
-//     render();
-// }
-//
-// plus.addEventListener('click', (event) => {
-//     addToDo(input.value);
-//     input.value = '';
-// });
+Vue.component('date-item', {
+    data () {
+        return {
+            today: new Date().toLocaleString('en', {weekday: 'long', month: 'short', day: 'numeric'}),
+        }
+    },
+    template: '<div>{{ today }}</div>',
+});
+
+Vue.component('task-item',{
+    props: ['data'],
+    data () {
+        return {
+            isDone: false,
+            text: true,
+            icon: 'fa fa-circle-thin co',
+            trash: 'fa fa-trash-o de'
+        }
+    },
+    methods: {
+        toggleDone() {
+            this.isDone = !this.isDone;
+            this.icon = this.isDone ? 'fa fa-check-circle co' : 'fa fa-circle-thin co';
+        },
+        task_done(){
+            this.$emit('task_done')
+        }
+    },
+    template: `
+              <li class="item">
+                    <i :class="[icon]" @click="toggleDone()"></i>
+                    <p :class="[{done: isDone, text}]"> {{ data.text }}</p>
+                    <i class="[trash]" @click="task_done()">️</i>
+              </li>`
+});
+
+var vue = new Vue({
+    el: "#app",
+    data: {
+        new_task: {
+            text: '',
+        },
+        tasks: [
+            { text: 'Meat' },
+            { text: 'Cheese' },
+            { text: 'Apple' }
+        ],
+    },
+    methods: {
+        add_task(){
+            if(this.new_task.text != '') {
+                this.tasks.push({
+                    text: this.new_task.text,
+                });
+                this.new_task.text = '';
+            }
+        },
+        delete_task(id){
+            this.tasks.splice(id,1);
+        }
+    }
+});
