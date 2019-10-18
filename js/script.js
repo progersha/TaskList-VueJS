@@ -10,7 +10,7 @@ Vue.component('date-item', {
 Vue.component('task-item',{
     props: ['data'],
     data () {
-        return {
+        git remote set-url origin        return {
             isDone: false,
             text: true,
             icon: 'fa fa-circle-thin co',
