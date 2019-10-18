@@ -48,15 +48,10 @@ var vue = new Vue({
     },
     methods: {
         add_task(){
-            if(this.new_task.text != '') {
-                this.tasks.push({
-                    text: this.new_task.text,
-                });
-                this.new_task.text = '';
-            }
+
         },
         delete_task(id){
-            this.tasks.splice(id,1);
+
         }
     }
 });
