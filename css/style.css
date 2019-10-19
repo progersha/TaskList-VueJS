@@ -188,9 +188,6 @@ body{
     text-decoration: line-through;
 }
 
-/*template: '<li :class="[{done: isDone, item}]" @click="toggleDone">{{ todo.text }}</li>',*/
-
-
 
 
 
