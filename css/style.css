@@ -188,6 +188,8 @@ body{
     text-decoration: line-through;
 }
 
+.completed { text-decoration: line-through; }
+
 
 
 
