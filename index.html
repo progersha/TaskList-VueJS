@@ -10,37 +10,37 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
-<!--<div class="container" id="app">-->
-<!--    <div class="header">-->
-<!--        <date-item id="date"></date-item>-->
-<!--    </div>-->
-<!--    <div class="content">-->
-<!--        <ul class="nav nav-tabs" id="filters">-->
-<!--            <filter-item v-for="(filter, index) in filters"-->
-<!--                         @filter_done="set_filter(index)"-->
-<!--                         :filter="filter"-->
-<!--                         :active="index == currentFilterIndex"></filter-item>-->
-<!--        </ul>-->
-<!--        <ul id="list">-->
-<!--            <task-item v-for="(data,index) in tasks"-->
-<!--                       @task_done="delete_task(index)"-->
-<!--                       :data="data"-->
-<!--            ></task-item>-->
-<!--        </ul>-->
-<!--    </div>-->
-<!--    <div class="add-to-do">-->
-<!--        <i class="fa fa-plus-circle plus" @click="add_task"></i>-->
-<!--        <input v-model="new_task.text" type="text" id="input" placeholder="Add a to-do" minlength="1">-->
-<!--    </div>-->
-    <div class="container mt-3 mt-sm-5" id="app">
-        <input class="form-control" placeholder="New item" v-model="newTodo" @keydown.enter="addTodo">
-        <ul class="list-unstyled">
-            <li v-for="todo in todos" :class="{ completed: todo.completed }">
-                <input type="checkbox" v-model="todo.completed">
-                {{ todo.text }}
-            </li>
+<div class="container" id="app">
+    <div class="header">
+        <date-item id="date"></date-item>
+    </div>
+    <div class="content">
+        <ul class="nav nav-tabs" id="filters">
+            <filter-item v-for="(filter, index) in filters"
+                         @filter_done="set_filter(index)"
+                         :filter="filter"
+                         :active="index == currentFilterIndex"></filter-item>
+        </ul>
+        <ul id="list">
+            <task-item v-for="(data,index) in tasks"
+                       @task_done="delete_task(index)"
+                       :data="data"
+            ></task-item>
         </ul>
     </div>
+    <div class="add-to-do">
+        <i class="fa fa-plus-circle plus" @click="add_task"></i>
+        <input v-model="new_task.text" type="text" id="input" placeholder="Add a to-do" minlength="1">
+    </div>
+<!--    <div class="container mt-3 mt-sm-5" id="app">-->
+<!--        <input class="form-control" placeholder="New item" v-model="newTodo" @keydown.enter="addTodo">-->
+<!--        <ul class="list-unstyled">-->
+<!--            <li v-for="todo in todos" :class="{ completed: todo.completed }">-->
+<!--                <input type="checkbox" v-model="todo.completed">-->
+<!--                {{ todo.text }}-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
 </div>
 <script src="js/script.js"></script>
 </body>
