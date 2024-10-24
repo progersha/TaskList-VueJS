@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/progersha/TaskList-VueJS#readme",
   "dependencies": {
-    "vue": "^2.6.10"
+    "vue": "^3.0.0"
   }
 }
